@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ponde3110 医療アプリ制作所</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-cyan:#00f5ff; --neon-green:#39ff14; --neon-orange:#ff6b00;
+    --gold:#ffc107; --dark-bg:#040810; --card-bg:rgba(0,20,40,0.85);
+    --border-glow:rgba(0,245,255,0.4); --text-primary:#e8f4ff; --text-muted:#7ab8d4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
+  body{background:var(--dark-bg);color:var(--text-primary);font-family:"Noto Sans JP",sans-serif;overflow-x:hidden;}
+  body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,80,120,.35) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(0,40,80,.4) 0%,transparent 60%),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,245,255,.03) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,245,255,.03) 60px);pointer-events:none;z-index:0;}
+  #particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+  .particle{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0;}
+  @keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:1;}90%{opacity:.6;}100%{transform:translateY(-20px) scale(1);opacity:0;}}
+  header{position:relative;z-index:10;overflow:visible;}
+  .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px 40px;position:relative;text-align:center;}
+  .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(0,120,180,.25) 0%,transparent 70%);pointer-events:none;}
+  /* ── Hero layout ── */
+  .hero-inner{display:flex;align-items:center;justify-content:center;gap:clamp(16px,4vw,48px);flex-wrap:wrap;margin-bottom:20px;animation:heroEntry 1s cubic-bezier(.16,1,.3,1) both;}
+  @keyframes heroEntry{from{opacity:0;transform:scale(.7) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  /* character image */
+  .logo-wrap{position:relative;flex-shrink:0;}
+  .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:transform .3s;}
+  .logo-img:hover{transform:scale(1.04) rotate(1deg);}
+  @keyframes logoGlow{from{box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);}to{box-shadow:0 0 0 3px rgba(57,255,20,.6),0 0 40px rgba(57,255,20,.4),0 0 100px rgba(0,200,100,.3),0 20px 60px rgba(0,0,0,.7);}}
+  .badge{position:absolute;top:8px;right:-8px;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;}
+  @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
+  /* speech bubble */
+  .speech-bubble{position:relative;background:rgba(0,20,50,.88);border:2px solid rgba(0,245,255,.5);border-radius:20px;padding:clamp(16px,3vw,28px) clamp(20px,4vw,40px);box-shadow:0 0 30px rgba(0,245,255,.15),inset 0 0 30px rgba(0,40,80,.4);text-align:left;max-width:520px;animation:titleEntry 1.2s cubic-bezier(.16,1,.3,1) .2s both;}
+  /* tail pointing left toward image */
+  .speech-bubble::before{content:"";position:absolute;left:-20px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-right:20px solid rgba(0,245,255,.5);}
+  .speech-bubble::after{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:17px solid rgba(0,20,50,.88);}
+  @keyframes titleEntry{from{opacity:0;transform:translateY(20px) skewX(-3deg);}to{opacity:1;transform:translateY(0) skewX(0);}}
+  /* title texts inside bubble */
+  .bubble-sub{font-family:"Orbitron",monospace;font-size:clamp(.65rem,1.8vw,.85rem);font-weight:700;letter-spacing:3px;color:var(--neon-green);text-transform:uppercase;margin-bottom:6px;opacity:.85;}
+  .title-main{font-family:"Noto Sans JP",sans-serif;font-size:clamp(1.8rem,6vw,3rem);font-weight:900;color:#fff;letter-spacing:2px;line-height:1.15;text-shadow:0 0 30px rgba(0,245,255,.6),0 0 60px rgba(0,180,255,.3);}
+  .title-main .accent{color:var(--neon-cyan);text-shadow:0 0 20px rgba(0,245,255,.9);}
+  .title-main .accent-seisaku{color:var(--neon-orange);text-shadow:0 0 20px rgba(255,107,0,.9),0 0 40px rgba(255,107,0,.5);}
+  .bubble-tagline{font-size:clamp(.65rem,1.6vw,.78rem);color:var(--text-muted);letter-spacing:2px;margin-top:10px;}
+  /* mobile: bubble tail points upward */
+  @media(max-width:640px){
+    .hero-inner{flex-direction:column;gap:0;}
+    .speech-bubble{margin-top:16px;text-align:center;}
+    .speech-bubble::before{left:50%;top:-20px;transform:translateX(-50%);border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:20px solid rgba(0,245,255,.5);border-top:none;}
+    .speech-bubble::after{left:50%;top:-16px;transform:translateX(-50%);border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:17px solid rgba(0,20,50,.88);border-top:none;}
+  }
+  .tagline{font-size:clamp(.75rem,2vw,.92rem);color:var(--text-muted);letter-spacing:3px;margin-top:12px;animation:titleEntry 1.2s cubic-bezier(.16,1,.3,1) .4s both;}
+  .scan-line{width:min(500px,90vw);height:2px;background:linear-gradient(90deg,transparent,var(--neon-cyan),var(--neon-green),transparent);margin:28px auto 0;animation:scanMove 3s linear infinite;opacity:.7;}
+  @keyframes scanMove{0%{transform:scaleX(.3);opacity:0;}50%{transform:scaleX(1);opacity:1;}100%{transform:scaleX(.3);opacity:0;}}
+  nav{position:sticky;top:0;z-index:100;background:rgba(4,8,16,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,245,255,.2);padding:12px 20px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+  nav a{font-family:"Rajdhani",sans-serif;font-weight:600;font-size:.85rem;letter-spacing:2px;color:var(--text-muted);text-decoration:none;padding:6px 16px;border:1px solid rgba(0,245,255,.15);border-radius:4px;transition:all .25s;text-transform:uppercase;}
+  nav a:hover{color:var(--neon-cyan);border-color:var(--neon-cyan);background:rgba(0,245,255,.08);box-shadow:0 0 15px rgba(0,245,255,.2);}
+  section{position:relative;z-index:5;padding:80px 20px;max-width:1100px;margin:0 auto;}
+  .section-label{font-family:"Orbitron",monospace;font-size:.65rem;letter-spacing:5px;color:var(--neon-green);text-transform:uppercase;margin-bottom:8px;opacity:.8;}
+  .section-title{font-family:"Orbitron",monospace;font-size:clamp(1.3rem,4vw,2rem);font-weight:900;line-height:1.2;margin-bottom:40px;}
+  .section-title span{color:var(--neon-cyan);}
+  .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+  .about-card{background:var(--card-bg);border:1px solid var(--border-glow);border-radius:12px;padding:28px 24px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;animation:cardEntry .6s both;}
+  .about-card:nth-child(1){animation-delay:.1s;}.about-card:nth-child(2){animation-delay:.2s;}.about-card:nth-child(3){animation-delay:.3s;}
+  @keyframes cardEntry{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+  .about-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-green));}
+  .about-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,245,255,.15);}
+  .about-icon{font-size:2rem;margin-bottom:14px;display:block;}
+  .about-card h3{font-family:"Rajdhani",sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;color:var(--neon-cyan);text-transform:uppercase;margin-bottom:10px;}
+  .about-card p{font-size:.84rem;line-height:1.7;color:var(--text-muted);}
+  .works-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+  .work-card{background:var(--card-bg);border:1px solid rgba(0,245,255,.2);border-radius:14px;overflow:hidden;transition:transform .3s,box-shadow .3s;position:relative;display:flex;flex-direction:column;}
+  .work-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 50px rgba(0,245,255,.2);border-color:var(--neon-cyan);}
+  .work-card-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
+  .work-card-top::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,var(--card-bg) 100%);}
+  .work-tag{position:absolute;top:12px;right:12px;font-family:"Orbitron",monospace;font-size:.58rem;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:20px;text-transform:uppercase;z-index:2;}
+  .tag-game{background:rgba(255,60,100,.85);color:#fff;}.tag-mini{background:rgba(255,150,0,.85);color:#000;}.tag-edu{background:rgba(57,255,20,.85);color:#000;}.tag-english{background:rgba(0,180,255,.85);color:#fff;}
+  .work-body{padding:20px;flex:1;display:flex;flex-direction:column;}
+  .work-body h3{font-family:"Noto Sans JP",sans-serif;font-size:.95rem;font-weight:700;color:var(--text-primary);margin-bottom:8px;line-height:1.4;}
+  .work-body p{font-size:.78rem;color:var(--text-muted);line-height:1.65;flex:1;margin-bottom:16px;}
+  .work-btn{display:inline-flex;align-items:center;gap:6px;font-family:"Rajdhani",sans-serif;font-weight:700;font-size:.82rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--dark-bg);background:linear-gradient(135deg,var(--neon-cyan),#0099cc);padding:9px 20px;border-radius:6px;text-decoration:none;transition:all .25s;box-shadow:0 0 15px rgba(0,245,255,.3);align-self:flex-start;}
+  .work-btn:hover{background:linear-gradient(135deg,var(--neon-green),#009900);box-shadow:0 0 20px rgba(57,255,20,.5);transform:scale(1.04);}
+  .work-btn svg{width:14px;height:14px;}
+  .bg-game{background:linear-gradient(135deg,rgba(180,0,60,.4),rgba(80,0,30,.6));}.bg-mini{background:linear-gradient(135deg,rgba(180,80,0,.4),rgba(80,40,0,.6));}.bg-edu{background:linear-gradient(135deg,rgba(0,100,40,.4),rgba(0,60,20,.6));}.bg-english{background:linear-gradient(135deg,rgba(0,60,160,.4),rgba(0,20,80,.6));}
+  .bg-jvp{background:linear-gradient(135deg,rgba(0,80,120,.5),rgba(0,30,60,.7));}
+  .bg-phs{background:linear-gradient(135deg,rgba(60,0,120,.5),rgba(20,0,60,.7));}
+  .bg-ecg{background:linear-gradient(135deg,rgba(120,30,0,.5),rgba(60,10,0,.7));}
+  .bg-peh{background:linear-gradient(135deg,rgba(0,100,80,.5),rgba(0,50,30,.7));}
+  .work-card-top.has-logo{font-size:0;}
+  .work-card-logo{width:auto;height:80px;max-width:148px;object-fit:contain;position:relative;z-index:1;border-radius:18px;box-shadow:0 0 0 1.5px rgba(255,255,255,.1),0 8px 28px rgba(0,0,0,.45),0 0 20px rgba(0,245,255,.2);transition:transform .3s,box-shadow .3s;}
+  .work-card:hover .work-card-logo{transform:scale(1.07);box-shadow:0 0 0 2px rgba(0,245,255,.45),0 12px 36px rgba(0,0,0,.5),0 0 36px rgba(0,245,255,.3);}
+  /* SVG fallback icon */
+  .app-icon-wrap{display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
+  .app-icon-svg{width:88px;height:88px;border-radius:22px;padding:16px;box-shadow:0 0 0 1.5px rgba(255,255,255,.12),0 8px 32px rgba(0,0,0,.4),0 0 24px rgba(0,245,255,.2);transition:transform .3s,box-shadow .3s;}
+  .work-card:hover .app-icon-svg{transform:scale(1.07);box-shadow:0 0 0 2px rgba(0,245,255,.5),0 12px 40px rgba(0,0,0,.5),0 0 40px rgba(0,245,255,.35);}
+  .app-credit{font-size:.62rem;color:rgba(255,255,255,.35);margin-top:auto;padding-top:8px;letter-spacing:.5px;}
+  .favicon-icon{width:88px;height:88px;object-fit:contain;border-radius:18px;padding:8px;background:rgba(255,255,255,.08);box-shadow:0 0 0 1.5px rgba(255,255,255,.12),0 8px 32px rgba(0,0,0,.4),0 0 24px rgba(0,245,255,.2);transition:transform .3s,box-shadow .3s;}
+  .work-card:hover .favicon-icon{transform:scale(1.07);box-shadow:0 0 0 2px rgba(0,245,255,.5),0 12px 40px rgba(0,0,0,.5),0 0 40px rgba(0,245,255,.35);}
+  .tag-med{background:rgba(0,200,180,.85);color:#000;}
+  .director-card{background:var(--card-bg);border:1px solid var(--border-glow);border-radius:16px;padding:36px 32px;text-align:left;position:relative;overflow:hidden;}
+  .director-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-green),var(--neon-orange));}
+  .director-text{font-size:.88rem;color:var(--text-muted);line-height:1.85;margin-bottom:20px;}
+  .director-text:last-of-type{margin-bottom:28px;}
+  .director-sig{display:flex;align-items:center;gap:20px;}
+  .director-sig-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,255,.4));}
+  .director-name{font-family:"Noto Sans JP",sans-serif;font-size:.9rem;font-weight:700;color:var(--neon-cyan);letter-spacing:2px;white-space:nowrap;text-shadow:0 0 15px rgba(0,245,255,.5);}
+  @media(max-width:600px){.director-card{padding:24px 18px;}.director-sig{flex-direction:column;align-items:flex-end;gap:8px;}.director-sig-line{width:100%;}}
+  .contact-wrap{max-width:700px;margin:0 auto;text-align:center;}
+  .contact-wrap>p{font-size:.88rem;color:var(--text-muted);line-height:1.7;margin-bottom:32px;}
+  .contact-form{background:var(--card-bg);border:1px solid var(--border-glow);border-radius:16px;padding:36px 32px;text-align:left;}
+  .form-group{margin-bottom:20px;}
+  .form-group label{display:block;font-family:"Rajdhani",sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;color:var(--neon-cyan);margin-bottom:7px;}
+  .form-group input,.form-group textarea{width:100%;background:rgba(0,20,40,.8);border:1px solid rgba(0,245,255,.25);border-radius:8px;color:var(--text-primary);font-family:"Noto Sans JP",sans-serif;font-size:.88rem;padding:12px 16px;outline:none;transition:border-color .25s,box-shadow .25s;resize:vertical;}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--neon-cyan);box-shadow:0 0 15px rgba(0,245,255,.2);}
+  .form-group textarea{min-height:120px;}
+  .submit-btn{width:100%;font-family:"Orbitron",monospace;font-weight:700;font-size:.85rem;letter-spacing:3px;color:#000;background:linear-gradient(135deg,var(--neon-cyan),var(--neon-green));border:none;border-radius:8px;padding:14px;cursor:pointer;transition:all .3s;box-shadow:0 0 20px rgba(0,245,255,.3);text-transform:uppercase;}
+  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,245,255,.5);}
+  .required-mark{color:var(--neon-orange);font-weight:700;margin-left:2px;}
+  .required-note{font-size:.74rem;color:var(--text-muted);margin-bottom:16px;letter-spacing:.5px;}
+  footer{position:relative;z-index:5;border-top:1px solid rgba(0,245,255,.15);padding:32px 20px;text-align:center;font-size:.75rem;color:var(--text-muted);letter-spacing:2px;}
+  footer .footer-logo{font-family:"Orbitron",monospace;font-size:.9rem;font-weight:700;color:var(--neon-cyan);margin-bottom:8px;}
+  .divider{position:relative;z-index:5;height:1px;background:linear-gradient(90deg,transparent,rgba(0,245,255,.3),transparent);margin:0 auto;max-width:900px;}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  @media(max-width:600px){.contact-form{padding:24px 20px;}section{padding:60px 16px;}}
+</style>
+</head>
+<body>
+<div id="particles"></div>
+<header>
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="logo-wrap">
+        <img src="image.png" class="logo-img" alt="医療アプリ制作所 所長">
+        <span class="badge">急性期病院の現役医師</span>
+      </div>
+      <div class="speech-bubble">
+        <div class="bubble-sub">// Medical Web App Studio</div>
+        <div class="title-main"><span class="accent">医療</span>アプリ<span class="accent-seisaku">制作所</span></div>
+        <div class="bubble-tagline">Medicine × App = Learn with Fun</div>
+      </div>
+    </div>
+    <div class="scan-line"></div>
+  </div>
+</header>
+<nav>
+  <a href="#about">About</a>
+  <a href="#works">Works</a>
+  <a href="#message">Message</a>
+  <a href="#contact">Contact</a>
+</nav>
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">// 私たちについて</div>
+    <h2 class="section-title">医療 × アプリ = <span>楽しく学ぶ</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-card reveal"><span class="about-icon">🩺</span><h3>Medical First</h3>
+      <p>現場で役立つアプリの開発をお手伝いします。</p></div>
+    <div class="about-card reveal"><span class="about-icon">⚡</span><h3>Web Native</h3>
+      <p>リンクのクリックで動くアプリを納品します。</p></div>
+    <div class="about-card reveal"><span class="about-icon">🎮</span><h3>Learn with Fun</h3>
+      <p>楽しみながら学ぶアプリの提供を目指します。</p></div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="works">
+  <div class="reveal">
+    <div class="section-label">// 代表的な作品</div>
+    <h2 class="section-title">Our <span>Works</span></h2>
+  </div>
+  <div class="works-grid">
+    <div class="work-card reveal">
+      <div class="work-card-top bg-game has-logo">
+        <div class="app-icon-wrap">
+          <img src="https://ponde3110.github.io/shin_on_sei/favicon.ico" class="work-card-logo favicon-icon" alt="心音の旅 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+        </div>
+        <span class="work-tag tag-game">Space Game</span>
+      </div>
+      <div class="work-body">
+        <h3>心音の旅</h3>
+        <p>ロケットを操作しながら心音を診断して心臓星へ</p>
+        <a href="https://ponde3110.github.io/shin_on_sei/" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-top bg-english has-logo">
+        <div class="app-icon-wrap">
+          <img src="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/favicon.ico" class="work-card-logo favicon-icon" alt="Cardiac Physical Exam Drill アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+        </div>
+        <span class="work-tag tag-english">Drill Book</span>
+      </div>
+      <div class="work-body">
+        <h3>循環器フィジカル　- 100本ノック -</h3>
+        <p>循環器疾患の身体所見を網羅的に学ぶアプリ</p>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-top bg-mini has-logo">
+        <div class="app-icon-wrap">
+          <img src="https://ponde3110.github.io/heart_sound_meister/favicon.ico" class="work-card-logo favicon-icon" alt="心音マイスター アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+        </div>
+        <span class="work-tag tag-mini">Shooting Game</span>
+      </div>
+      <div class="work-body">
+        <h3>Heart Sound Meister</h3>
+        <p>心音をミサイルで撃破する英語ゲーム（英語）</p>
+        <a href="https://ponde3110.github.io/heart_sound_meister/" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-top bg-jvp has-logo">
+        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/favicon.ico" class="work-card-logo favicon-icon" alt="シンプル頚静脈 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <span class="work-tag tag-med">Guidance</span>
+      </div>
+      <div class="work-body">
+        <h3>シンプル頚静脈　Simple JVP</h3>
+        <p>5ステップ法で学ぶ日本語と英語のバイリンガル・アプリ</p>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-top bg-phs has-logo">
+        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/favicon.ico" class="work-card-logo favicon-icon" alt="ポケット心音 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <span class="work-tag tag-med">Dictionary</span>
+      </div>
+      <div class="work-body">
+        <h3>ポケット心音</h3>
+        <p>心音学習に必要なコンテンツを網羅した総合辞典</p>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-top bg-edu has-logo">
+        <div class="app-icon-wrap">
+          <img src="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/favicon.ico" class="work-card-logo favicon-icon" alt="血ガス-30 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;">
+        </div>
+        <span class="work-tag tag-edu">Mini Game</span>
+      </div>
+      <div class="work-body">
+        <h3>血ガス-30</h3>
+        <p>血液ガス分析の読み方を練習するミニゲーム</p>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="message">
+  <div class="contact-wrap reveal">
+    <div class="section-label">// 所長からのメッセージ</div>
+    <h2 class="section-title" style="text-align:center;">Director's <span>Message</span></h2>
+    <div class="director-card">
+      <p class="director-text">日常臨床の傍ら、若手の医師やメディカルスタッフの育成に静かに取り組まれている先生方は多くいらっしゃると思います。そうした先生方が長年培ってこられた貴重な教育資料を、より多くの方に届けられるよう、WEBアプリとして公開するお手伝いをするのが本制作所です。</p>
+      <p class="director-text">作成したい内容と関連する医療データ（テキスト・イラスト・動画・音声など）をお送りいただければ、2週間〜1ヵ月程度でWEBアプリとして納品いたします。納品はクリックで動くリンク（URL）でのご提供が基本ですが、勤務先にサーバーをお持ちの場合はデータ形式でのお渡しも可能です。</p>
+      <p class="director-text">費用はアプリ1本につき一律30,000円（市価の10分の1以下）。本制作所は営利を目的としておりませんが、制作には相応の労力を要するため、最低賃金を基準に設定しております。なお、日本語でご入稿いただいた場合も、追加料金なしで英語版としてお届けできます。</p>
+      <p class="director-text">完成したアプリの著作権は依頼主様に帰属します。本制作所の痕跡は一切残りません（ただし当社のGitHubサーバーをご利用の場合、URLに「ponde3110」の文字が含まれます）。App StoreやGoogle Playへの公開・販売も、依頼主様のご判断にお任せしております。</p>
+      <p class="director-text">私自身、循環器内科医として急性期病院に勤務しております。そのためアプリ制作は、本業に支障のない勤務時間外での対応となります。専門業者のような迅速なご対応は難しい場合もございますが、依頼者様の想いと医療の質向上のために全力で取り組んでまいります。</p>
+      <p class="director-text">なお、ご提供いただく資料は第三者の著作権を侵害せず、個人情報保護の観点からもWEB公開に適した内容に限定してください。完成したアプリの内容に起因するいかなる問題についても、本制作所は責任を負いかねますことを、あらかじめご了承ください。</p>
+      <div class="director-sig">
+        <div class="director-sig-line"></div>
+        <p class="director-name">ponde3110 医療アプリ制作所　川﨑達也</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="reveal">
+      <div class="section-label">// お問い合わせ</div>
+      <h2 class="section-title" style="text-align:center;">Contact <span>Us</span></h2>
+      <!-- <p>通常2〜3営業日以内にご返信いたします。</p> -->
+    </div>
+    <div class="contact-form reveal">
+      <form id="contactForm">
+        <div class="form-group"><label>お名前 / Name <span class="required-mark">*</span></label><input type="text" name="name" placeholder="松下 太郎子" required></div>
+        <div class="form-group"><label>施設名 / Institution</label><input type="text" name="institution" placeholder="○○医院 / ○○病院 / ○○大学"></div>
+        <div class="form-group"><label>メールアドレス / Email <span class="required-mark">*</span></label><input type="email" name="email" placeholder="ponde3110@example.com" required></div>
+        <div class="form-group"><label>件名 / Subject</label><input type="text" name="subject" placeholder="アプリ開発のご相談"></div>
+        <div class="form-group"><label>メッセージ / Message <span class="required-mark">*</span></label><textarea name="message" placeholder="お問い合わせ内容をご記入ください..." required></textarea></div>
+        <p class="required-note"><span class="required-mark">*</span> は必須項目です</p>
+        <button type="submit" class="submit-btn">メールを送る ▶</button>
+      </form>
+      <p id="form-status" style="margin-top:16px;text-align:center;font-size:.85rem;color:var(--neon-green);display:none;"></p>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-logo">ponde3110 医療アプリ制作所</div>
+  <p>© 2026 ponde3110. Medical Web App Studio. All Rights Reserved.</p>
+</footer>
+<script>
+(function(){
+  // パーティクル
+  const c=document.getElementById("particles"),cols=["#00f5ff","#39ff14","#ffc107","#ff6b00","#fff"];
+  for(let i=0;i<40;i++){
+    const p=document.createElement("div");p.className="particle";
+    const s=Math.random()*3+1;
+    p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;background:${cols[Math.floor(Math.random()*cols.length)]};box-shadow:0 0 6px ${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*15}s;`;
+    c.appendChild(p);
+  }
+  // スクロールリベール
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);}}),{threshold:.1});
+  document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+  // フォーム（mailto フォールバック）
+  document.getElementById("contactForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    const n=this.name.value,em=this.email.value,inst=this.institution.value,sub=this.subject.value||"お問い合わせ",msg=this.message.value;
+    const body=encodeURIComponent(`お名前: ${n}\nメール: ${em}${inst?'\n施設名: '+inst:''}\n\n${msg}`);
+    window.location.href=`mailto:***@mail.com?subject=${encodeURIComponent(sub)}&body=${body}`;
+  });
+})();
+</script>
+</body>
+</html>
