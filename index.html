@@ -307,12 +307,29 @@
   // スクロールリベール
   const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);}}),{threshold:.1});
   document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-  // フォーム（mailto フォールバック）
-  document.getElementById("contactForm").addEventListener("submit",function(e){
+  // フォーム（Formspree）
+  document.getElementById("contactForm").addEventListener("submit",async function(e){
     e.preventDefault();
+    const btn=this.querySelector(".submit-btn");
+    const status=document.getElementById("form-status");
     const n=this.name.value,em=this.email.value,inst=this.institution.value,sub=this.subject.value||"お問い合わせ",msg=this.message.value;
-    const body=encodeURIComponent(`お名前: ${n}\nメール: ${em}${inst?'\n施設名: '+inst:''}\n\n${msg}`);
-    window.location.href=`mailto:tk20140531@mail.com?subject=${encodeURIComponent(sub)}&body=${body}`;
+    btn.textContent="送信中...";btn.disabled=true;
+    try{
+      const res=await fetch("https://formspree.io/f/xnjwoddv",{
+        method:"POST",
+        headers:{"Content-Type":"application/json","Accept":"application/json"},
+        body:JSON.stringify({name:n,email:em,institution:inst,subject:sub,message:msg})
+      });
+      if(res.ok){
+        status.textContent="✔ 送信しました。ありがとうございます！";status.style.color="var(--neon-green)";status.style.display="block";
+        this.reset();
+      }else{
+        status.textContent="⚠ 送信に失敗しました。時間をおいて再度お試しください。";status.style.color="var(--neon-orange)";status.style.display="block";
+      }
+    }catch(err){
+      status.textContent="⚠ 通信エラーが発生しました。";status.style.color="var(--neon-orange)";status.style.display="block";
+    }
+    btn.textContent="メールを送る ▶";btn.disabled=false;
   });
 })();
 </script>
