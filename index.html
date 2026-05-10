@@ -312,7 +312,7 @@
     e.preventDefault();
     const n=this.name.value,em=this.email.value,inst=this.institution.value,sub=this.subject.value||"お問い合わせ",msg=this.message.value;
     const body=encodeURIComponent(`お名前: ${n}\nメール: ${em}${inst?'\n施設名: '+inst:''}\n\n${msg}`);
-    window.location.href=`mailto:***@mail.com?subject=${encodeURIComponent(sub)}&body=${body}`;
+    window.location.href=`mailto:tk20140531@mail.com?subject=${encodeURIComponent(sub)}&body=${body}`;
   });
 })();
 </script>
