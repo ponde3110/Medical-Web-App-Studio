@@ -13,7 +13,7 @@
     --gold:#ffc107; --dark-bg:#040810; --card-bg:rgba(0,20,40,0.85);
     --border-glow:rgba(0,245,255,0.4); --text-primary:#e8f4ff; --text-muted:#7ab8d4;
   }
-  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:auto;} html.ready{scroll-behavior:smooth;}
+  *{margin:0;padding:0;box-sizing:border-box;} html{scroll-behavior:smooth;}
   body{background:var(--dark-bg);color:var(--text-primary);font-family:"Noto Sans JP",sans-serif;overflow-x:hidden;}
   body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,80,120,.35) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(0,40,80,.4) 0%,transparent 60%),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(0,245,255,.03) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(0,245,255,.03) 60px);pointer-events:none;z-index:0;}
   #particles{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
@@ -316,15 +316,6 @@
   });
 })();
 </script>
-<script>
-// ページ読み込み時に必ずトップへ戻す
-history.scrollRestoration = 'manual';
-window.scrollTo(0, 0);
-// スムーズスクロールはトップ到達後に有効化
-window.addEventListener('load', function() {
-  window.scrollTo(0, 0);
-  setTimeout(function(){ document.documentElement.classList.add('ready'); }, 100);
-});
-</script>
+<script>history.scrollRestoration='manual';</script>
 </body>
 </html>
