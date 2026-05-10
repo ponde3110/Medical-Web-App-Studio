@@ -92,7 +92,9 @@
   .work-card-logo{width:auto;height:80px;max-width:148px;object-fit:contain;position:relative;z-index:1;border-radius:18px;box-shadow:0 0 0 1.5px rgba(255,255,255,.1),0 8px 28px rgba(0,0,0,.45),0 0 20px rgba(0,245,255,.2);transition:transform .3s,box-shadow .3s;}
   .work-card:hover .work-card-logo{transform:scale(1.07);box-shadow:0 0 0 2px rgba(0,245,255,.45),0 12px 36px rgba(0,0,0,.5),0 0 36px rgba(0,245,255,.3);}
   /* SVG fallback icon */
-  .app-icon-wrap{display:flex;align-items:center;justify-content:center;position:relative;z-index:1;}
+  .icon-link{display:flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;}
+  .icon-link:hover .favicon-icon{transform:scale(1.1);box-shadow:0 0 0 2px rgba(0,245,255,.7),0 12px 40px rgba(0,0,0,.5),0 0 40px rgba(0,245,255,.5);}
+  .icon-link:hover .app-icon-svg{transform:scale(1.1);}
   .app-icon-svg{width:88px;height:88px;border-radius:22px;padding:16px;box-shadow:0 0 0 1.5px rgba(255,255,255,.12),0 8px 32px rgba(0,0,0,.4),0 0 24px rgba(0,245,255,.2);transition:transform .3s,box-shadow .3s;}
   .work-card:hover .app-icon-svg{transform:scale(1.07);box-shadow:0 0 0 2px rgba(0,245,255,.5),0 12px 40px rgba(0,0,0,.5),0 0 40px rgba(0,245,255,.35);}
   .app-credit{font-size:.62rem;color:rgba(255,255,255,.35);margin-top:auto;padding-top:8px;letter-spacing:.5px;}
@@ -135,7 +137,7 @@
     <div class="hero-inner">
       <div class="logo-wrap">
         <span class="badge">急性期病院の現役医師</span>
-        <img src="image.png" class="logo-img" alt="医療アプリ制作所 所長">
+        <img src="image.webp" class="logo-img" alt="医療アプリ制作所 所長">
       </div>
       <div class="speech-bubble">
         <div class="bubble-sub">// Medical Web App Studio</div>
@@ -159,11 +161,11 @@
   </div>
   <div class="about-grid">
     <div class="about-card reveal"><span class="about-icon">🩺</span><h3>Medical First</h3>
-      <p>現場で役立つアプリの開発をお手伝いします。</p></div>
+      <p>現場で役立つアプリの作成をお手伝いします。</p></div>
     <div class="about-card reveal"><span class="about-icon">⚡</span><h3>Web Native</h3>
-      <p>リンクのクリックで動くアプリを納品します。</p></div>
+      <p>リンク一つで共有できるWebアプリを納品します。</p></div>
     <div class="about-card reveal"><span class="about-icon">🎮</span><h3>Learn with Fun</h3>
-      <p>楽しみながら学ぶアプリの提供を目指します。</p></div>
+      <p>楽しみながら学べるアプリの開発を目指します。</p></div>
   </div>
 </section>
 <div class="divider"></div>
@@ -176,7 +178,9 @@
     <div class="work-card reveal">
       <div class="work-card-top bg-game has-logo">
         <div class="app-icon-wrap">
-          <img src="https://ponde3110.github.io/shin_on_sei/favicon.ico" class="work-card-logo favicon-icon" alt="心音の旅 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          <a href="https://ponde3110.github.io/shin_on_sei/" target="_blank" rel="noopener" class="icon-link">
+            <img src="https://ponde3110.github.io/shin_on_sei/favicon.ico" class="work-card-logo favicon-icon" alt="心音の旅 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          </a>
         </div>
         <span class="work-tag tag-game">Space Game</span>
       </div>
@@ -189,7 +193,9 @@
     <div class="work-card reveal">
       <div class="work-card-top bg-english has-logo">
         <div class="app-icon-wrap">
-          <img src="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/favicon.ico" class="work-card-logo favicon-icon" alt="Cardiac Physical Exam Drill アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/index.html" target="_blank" rel="noopener" class="icon-link">
+            <img src="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/favicon.ico" class="work-card-logo favicon-icon" alt="Cardiac Physical Exam Drill アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          </a>
         </div>
         <span class="work-tag tag-english">Drill Book</span>
       </div>
@@ -202,7 +208,9 @@
     <div class="work-card reveal">
       <div class="work-card-top bg-mini has-logo">
         <div class="app-icon-wrap">
-          <img src="https://ponde3110.github.io/heart_sound_meister/favicon.ico" class="work-card-logo favicon-icon" alt="心音マイスター アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          <a href="https://ponde3110.github.io/heart_sound_meister/" target="_blank" rel="noopener" class="icon-link">
+            <img src="https://ponde3110.github.io/heart_sound_meister/favicon.ico" class="work-card-logo favicon-icon" alt="心音マイスター アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          </a>
         </div>
         <span class="work-tag tag-mini">Shooting Game</span>
       </div>
@@ -214,7 +222,7 @@
     </div>
     <div class="work-card reveal">
       <div class="work-card-top bg-jvp has-logo">
-        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/favicon.ico" class="work-card-logo favicon-icon" alt="シンプル頚静脈 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <div class="app-icon-wrap"><a href="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/index.html" target="_blank" rel="noopener" class="icon-link"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/favicon.ico" class="work-card-logo favicon-icon" alt="シンプル頚静脈 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></a></div>
         <span class="work-tag tag-med">Guidance</span>
       </div>
       <div class="work-body">
@@ -225,7 +233,7 @@
     </div>
     <div class="work-card reveal">
       <div class="work-card-top bg-phs has-logo">
-        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/favicon.ico" class="work-card-logo favicon-icon" alt="ポケット心音 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <div class="app-icon-wrap"><a href="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/index.html" target="_blank" rel="noopener" class="icon-link"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/favicon.ico" class="work-card-logo favicon-icon" alt="ポケット心音 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></a></div>
         <span class="work-tag tag-med">Dictionary</span>
       </div>
       <div class="work-body">
@@ -236,9 +244,7 @@
     </div>
     <div class="work-card reveal">
       <div class="work-card-top bg-edu has-logo">
-        <div class="app-icon-wrap">
-          <img src="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/favicon.ico" class="work-card-logo favicon-icon" alt="血ガス-30 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;">
-        </div>
+        <div class="app-icon-wrap"><a href="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/index.html" target="_blank" rel="noopener" class="icon-link"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/favicon.ico" class="work-card-logo favicon-icon" alt="血ガス-30 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></a></div>
         <span class="work-tag tag-edu">Mini Game</span>
       </div>
       <div class="work-body">
