@@ -71,9 +71,8 @@
   .about-card h3{font-family:"Rajdhani",sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;color:var(--neon-cyan);text-transform:uppercase;margin-bottom:10px;}
   .about-card p{font-size:.84rem;line-height:1.7;color:var(--text-muted);}
   .works-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
-  .work-card{background:var(--card-bg);border:1px solid rgba(0,245,255,.2);border-radius:14px;overflow:hidden;transition:transform .3s,box-shadow .3s;position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;cursor:pointer;}
-  .work-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 50px rgba(0,245,255,.2);border-color:var(--neon-cyan);}
-  .work-card:active{transform:translateY(-2px) scale(1.005);transition:transform .1s;}
+  .work-card{background:var(--card-bg);border:1px solid rgba(0,245,255,.2);border-radius:14px;overflow:hidden;position:relative;display:flex;flex-direction:column;color:inherit;cursor:default;}
+  .work-card:hover{border-color:rgba(0,245,255,.2);}
   @media(hover:none){.work-card:hover{transform:none;box-shadow:none;border-color:rgba(0,245,255,.2);}}
   .work-card-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;}
   .work-card-top::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,var(--card-bg) 100%);}
@@ -177,78 +176,78 @@
     <h2 class="section-title">Our <span>Works</span></h2>
   </div>
   <div class="works-grid">
-    <a href="https://ponde3110.github.io/shin_on_sei/" target="_blank" rel="noopener" class="work-card reveal">
+    <div class="work-card reveal">
       <div class="work-card-top bg-game has-logo">
         <div class="app-icon-wrap">
-          <img src="https://ponde3110.github.io/shin_on_sei/favicon.ico" class="work-card-logo favicon-icon" alt="心音の旅 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          <img src="1.webp" class="work-card-logo favicon-icon" alt="心音の旅 アイコン">
         </div>
         <span class="work-tag tag-game">Space Game</span>
       </div>
       <div class="work-body">
         <h3>心音の旅</h3>
         <p>ロケットを操作しながら心音を診断して心臓星へ</p>
-        <span class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</span>
+        <a href="https://ponde3110.github.io/shin_on_sei/" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
       </div>
-    </a>
-    <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/index.html" target="_blank" rel="noopener" class="work-card reveal">
+    </div>
+    <div class="work-card reveal">
       <div class="work-card-top bg-english has-logo">
         <div class="app-icon-wrap">
-          <img src="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/favicon.ico" class="work-card-logo favicon-icon" alt="Cardiac Physical Exam Drill アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          <img src="2.webp" class="work-card-logo favicon-icon" alt="Cardiac Physical Exam Drill アイコン">
         </div>
         <span class="work-tag tag-english">Drill Book</span>
       </div>
       <div class="work-body">
         <h3>循環器フィジカル　- 100本ノック -</h3>
         <p>循環器疾患の身体所見を網羅的に学ぶアプリ</p>
-        <span class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</span>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/cardiac_PE_drill/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
       </div>
-    </a>
-    <a href="https://ponde3110.github.io/heart_sound_meister/" target="_blank" rel="noopener" class="work-card reveal">
+    </div>
+    <div class="work-card reveal">
       <div class="work-card-top bg-mini has-logo">
         <div class="app-icon-wrap">
-          <img src="https://ponde3110.github.io/heart_sound_meister/favicon.ico" class="work-card-logo favicon-icon" alt="心音マイスター アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=ponde3110.github.io&sz=128';this.onerror=null;">
+          <img src="3.webp" class="work-card-logo favicon-icon" alt="心音マイスター アイコン">
         </div>
         <span class="work-tag tag-mini">Shooting Game</span>
       </div>
       <div class="work-body">
         <h3>Heart Sound Meister</h3>
         <p>BGMに合う心音を選んで撃破する英語ゲーム</p>
-        <span class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</span>
+        <a href="https://ponde3110.github.io/heart_sound_meister/" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
       </div>
-    </a>
-    <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/index.html" target="_blank" rel="noopener" class="work-card reveal">
+    </div>
+    <div class="work-card reveal">
       <div class="work-card-top bg-jvp has-logo">
-        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/favicon.ico" class="work-card-logo favicon-icon" alt="シンプル頚静脈 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <div class="app-icon-wrap"><img src="4.webp" class="work-card-logo favicon-icon" alt="シンプル頚静脈 アイコン"></div>
         <span class="work-tag tag-med">Guidance</span>
       </div>
       <div class="work-body">
         <h3>シンプル頚静脈　Simple JVP</h3>
         <p>5ステップ法で学ぶ英語とのバイリンガル・アプリ</p>
-        <span class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</span>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/simple_JVP/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
       </div>
-    </a>
-    <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/index.html" target="_blank" rel="noopener" class="work-card reveal">
+    </div>
+    <div class="work-card reveal">
       <div class="work-card-top bg-phs has-logo">
-        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/favicon.ico" class="work-card-logo favicon-icon" alt="ポケット心音 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <div class="app-icon-wrap"><img src="5.webp" class="work-card-logo favicon-icon" alt="ポケット心音 アイコン"></div>
         <span class="work-tag tag-med">Dictionary</span>
       </div>
       <div class="work-body">
         <h3>ポケット心音</h3>
         <p>心音の学習に必要な知識をまとめた辞典</p>
-        <span class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</span>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/phs/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
       </div>
-    </a>
-    <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/index.html" target="_blank" rel="noopener" class="work-card reveal">
+    </div>
+    <div class="work-card reveal">
       <div class="work-card-top bg-edu has-logo">
-        <div class="app-icon-wrap"><img src="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/favicon.ico" class="work-card-logo favicon-icon" alt="血ガス-30 アイコン" onerror="this.src='https://www.google.com/s2/favicons?domain=kenpo.jpn.panasonic.com&sz=128';this.onerror=null;"></div>
+        <div class="app-icon-wrap"><img src="6.webp" class="work-card-logo favicon-icon" alt="血ガス-30 アイコン"></div>
         <span class="work-tag tag-edu">Mini Game</span>
       </div>
       <div class="work-body">
         <h3>血ガス-30</h3>
         <p>血液ガス分析の解釈をマスターするミニゲーム</p>
-        <span class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</span>
+        <a href="https://kenpo.jpn.panasonic.com/kinen/kinen/bga30/index.html" target="_blank" rel="noopener" class="work-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>View App</a>
       </div>
-    </a>
+    </div>
   </div>
 </section>
 <div class="divider"></div>
@@ -310,9 +309,9 @@
   // スクロールリベール
   const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);}}),{threshold:.1});
   document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-  // スマホのタップ後ホバー残留を解消
-  document.querySelectorAll('.work-card').forEach(card=>{
-    card.addEventListener('touchend',()=>{setTimeout(()=>card.blur(),300);});
+  // VIEW APPボタンのみリンク有効（カード全体のクリックは無効）
+  document.querySelectorAll('.work-btn').forEach(btn=>{
+    btn.addEventListener('click',e=>{e.stopPropagation();});
   });
   // フォーム（Formspree）
   document.getElementById("contactForm").addEventListener("submit",async function(e){
