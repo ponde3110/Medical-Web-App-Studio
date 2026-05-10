@@ -26,11 +26,11 @@
   .hero-inner{display:flex;align-items:center;justify-content:center;gap:clamp(16px,4vw,48px);flex-wrap:wrap;margin-bottom:20px;animation:heroEntry 1s cubic-bezier(.16,1,.3,1) both;}
   @keyframes heroEntry{from{opacity:0;transform:scale(.7) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
   /* character image */
-  .logo-wrap{position:relative;flex-shrink:0;}
+  .logo-wrap{position:relative;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
   .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:transform .3s;}
   .logo-img:hover{transform:scale(1.04) rotate(1deg);}
   @keyframes logoGlow{from{box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);}to{box-shadow:0 0 0 3px rgba(57,255,20,.6),0 0 40px rgba(57,255,20,.4),0 0 100px rgba(0,200,100,.3),0 20px 60px rgba(0,0,0,.7);}}
-  .badge{position:absolute;top:3px;right:-8px;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;}
+  .badge{display:inline-block;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;margin-bottom:10px;}
   @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
   /* speech bubble */
   .speech-bubble{position:relative;background:rgba(0,20,50,.88);border:2px solid rgba(0,245,255,.5);border-radius:20px;padding:clamp(16px,3vw,28px) clamp(20px,4vw,40px);box-shadow:0 0 30px rgba(0,245,255,.15),inset 0 0 30px rgba(0,40,80,.4);text-align:left;max-width:520px;animation:titleEntry 1.2s cubic-bezier(.16,1,.3,1) .2s both;}
@@ -134,8 +134,8 @@
     <div class="hero-glow"></div>
     <div class="hero-inner">
       <div class="logo-wrap">
-        <img src="image.png" class="logo-img" alt="医療アプリ制作所 所長">
         <span class="badge">急性期病院の現役医師</span>
+        <img src="image.png" class="logo-img" alt="医療アプリ制作所 所長">
       </div>
       <div class="speech-bubble">
         <div class="bubble-sub">// Medical Web App Studio</div>
@@ -321,8 +321,8 @@
         body:JSON.stringify({name:n,email:em,institution:inst,subject:sub,message:msg})
       });
       if(res.ok){
-        status.textContent="✔ 送信しました。ありがとうございます！";status.style.color="var(--neon-green)";status.style.display="block";
-        this.reset();
+        document.getElementById("contactForm").style.display="none";
+        status.textContent="✔ 送信しました。ありがとうございます！";status.style.color="var(--neon-green)";status.style.display="block";status.style.fontSize="1rem";status.style.padding="40px 0";
       }else{
         status.textContent="⚠ 送信に失敗しました。時間をおいて再度お試しください。";status.style.color="var(--neon-orange)";status.style.display="block";
       }
