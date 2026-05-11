@@ -66,8 +66,9 @@
   @keyframes cardEntry{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
   .about-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-green));}
   .about-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,245,255,.15);}
-  .about-icon{font-size:2rem;margin-bottom:14px;display:block;}
-  .about-card h3{font-family:"Rajdhani",sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;color:var(--neon-cyan);text-transform:uppercase;margin-bottom:10px;}
+  .about-card-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .about-icon{font-size:1.6rem;flex-shrink:0;}
+  .about-card h3{font-family:"Rajdhani",sans-serif;font-size:1rem;font-weight:700;letter-spacing:2px;color:var(--neon-cyan);text-transform:uppercase;margin-bottom:0;}
   .about-card p{font-size:.84rem;line-height:1.7;color:var(--text-muted);}
   .works-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
   .work-card{background:var(--card-bg);border:1px solid rgba(0,245,255,.2);border-radius:14px;overflow:hidden;position:relative;display:flex;flex-direction:column;color:inherit;cursor:default;}
@@ -136,7 +137,7 @@
     <div class="hero-glow"></div>
     <div class="hero-inner">
       <div class="logo-wrap">
-        <span class="badge">急性期病院の現役医師</span>
+        <span class="badge">現役の循環器内科医が運営する</span>
         <img src="image.webp" class="logo-img" alt="医療アプリ制作所 所長">
       </div>
       <div class="speech-bubble">
@@ -160,11 +161,11 @@
     <h2 class="section-title">About <span>Us</span></h2>
   </div>
   <div class="about-grid">
-    <div class="about-card reveal"><span class="about-icon">🩺</span><h3>Education First</h3>
+    <div class="about-card reveal"><div class="about-card-header"><span class="about-icon">🩺</span><h3>Education First</h3></div>
       <p>医療現場で役立つアプリの作成をお手伝いします。</p></div>
-    <div class="about-card reveal"><span class="about-icon">⚡</span><h3>Web Native</h3>
+    <div class="about-card reveal"><div class="about-card-header"><span class="about-icon">⚡</span><h3>Web Native</h3></div>
       <p>リンクひとつで共有できるWebアプリを納品します。</p></div>
-    <div class="about-card reveal"><span class="about-icon">🎮</span><h3>Learn with Fun</h3>
+    <div class="about-card reveal"><div class="about-card-header"><span class="about-icon">🎮</span><h3>Learn with Fun</h3></div>
       <p>楽しみながら学べるアプリの開発を目指しています。</p></div>
   </div>
 </section>
@@ -259,12 +260,12 @@
       <p class="director-text">作成したい医療アプリの形式（クイズやゲームなど）と元になる医療データ（テキストや画像など）をお送りいただければ、1ヵ月程でWEBアプリにいたします。プログラムは当社が管理するGitHubページに登録して、依頼者様にはクリックで動くリンク（URL）を供与します。</p>
       <p class="director-text">WEBアプリはインストール不要で、インターネットがあればスマートフォン・タブレット・PCなど、AndroidやiOSを含むほぼすべてのデバイスとOSで動作します。なお、ご自身のサーバーや勤務先医療機関のホームページをお持ちの場合は、プログラムコードとしてのお渡しも可能です。</p>
       <p class="director-text">費用はアプリ1個につき一律30,000円です（おそらく市価の10分の1以下）。営利を目的としておりませんが、開発には相応の労力を要するため、最低賃金×約30時間を元に設定しました。同じ医療従事者として信頼しているため、お支払いは納品後で結構です。</p>
-      <p class="director-text">完成したアプリの著作権は依頼主様に帰属し、本制作所の痕跡は残りません。ただし当社サーバーをご利用の場合、追加コストはありませんがURLに「ponde3110」が含まれます。App StoreやGoogle Playへの申請はご自由ですが、手続きはご自身でお願いいたします。</p>
+      <p class="director-text">完成したアプリの著作権は依頼主様に帰属し、内部に本制作所の痕跡は残りません。ただし当社サーバーをご利用の場合、URLに「ponde3110」が含まれます（追加コストなし）。App StoreやGoogle Playへの申請はご自由ですが、手続きはご自身でお願いいたします。</p>
       <p class="director-text">私は現在も循環器内科医として急性期病院に勤務しております。そのためアプリ制作は、本業に支障のない勤務時間外での対応となります。専門業者のような迅速な対応は難しい場合もございますが、依頼者様の教育への熱い想いに共感し、全力で取り組んでまいります。</p>
       <p class="director-text">なお、ご提供いただく資料は第三者の著作権を侵害せず、個人情報保護の観点からも公開に適した内容に限定してください。完成したアプリの使用により生じた問題やサーバー停止などの不測の事態について、本制作所は責任を負いかねますことをあらかじめご了承ください。</p>
       <div class="director-sig">
         <div class="director-sig-line"></div>
-        <p class="director-name">ponde3110　川﨑達也</p>
+        <p class="director-name"><a href="https://kenpo.jpn.panasonic.com/kinen/department/cardiology.html" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">松下記念病院</a>　川﨑達也</p>
       </div>
     </div>
   </div>
