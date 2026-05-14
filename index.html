@@ -27,8 +27,9 @@
   @keyframes heroEntry{from{opacity:0;transform:scale(.7) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
   /* character image */
   .logo-wrap{position:relative;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
-  .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:transform .3s;}
-  .logo-img:hover{transform:scale(1.04) rotate(1deg);}
+  .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:transform .3s, opacity .5s ease, filter .5s ease;cursor:pointer;}
+  .logo-img:hover{transform:scale(1.04);}
+  .logo-img.img2-show{filter:blur(0px);}
   @keyframes logoGlow{from{box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);}to{box-shadow:0 0 0 3px rgba(57,255,20,.6),0 0 40px rgba(57,255,20,.4),0 0 100px rgba(0,200,100,.3),0 20px 60px rgba(0,0,0,.7);}}
   .badge{display:inline-block;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;margin-bottom:10px;}
   @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
@@ -406,8 +407,27 @@
     }
     btn.textContent="メールを送る ▶";btn.disabled=false;
   });
+  // イラストクリックでimage2にふわっと2秒間切り替え
+  let img2timer=null;
+  const logoImg=document.querySelector('.logo-img');
+  function swapTo(src,cb){
+    logoImg.style.opacity='0';
+    logoImg.style.filter='blur(12px)';
+    setTimeout(()=>{
+      logoImg.src=src;
+      logoImg.style.opacity='1';
+      logoImg.style.filter='blur(0px)';
+      if(cb) setTimeout(cb,2000);
+    },500);
+  }
+  logoImg.addEventListener('click',function(){
+    if(img2timer) return;
+    img2timer=true;
+    swapTo('image2.webp',()=>{
+      swapTo('image.webp',()=>{img2timer=null;});
+    });
+  });
 })();
 </script>
-<script>history.scrollRestoration='manual';</script>
 </body>
 </html>
