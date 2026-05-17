@@ -27,8 +27,7 @@
   @keyframes heroEntry{from{opacity:0;transform:scale(.7) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
   /* character image */
   .logo-wrap{position:relative;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
-  .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:transform .3s, opacity .5s ease, filter .5s ease;cursor:pointer;}
-  .logo-img:hover{transform:scale(1.04);}
+  .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:opacity .7s ease, filter .7s ease;cursor:pointer;}
   .logo-img.img2-show{filter:blur(0px);}
   @keyframes logoGlow{from{box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);}to{box-shadow:0 0 0 3px rgba(57,255,20,.6),0 0 40px rgba(57,255,20,.4),0 0 100px rgba(0,200,100,.3),0 20px 60px rgba(0,0,0,.7);}}
   .badge{display:inline-block;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;margin-bottom:10px;}
@@ -367,6 +366,33 @@
   } else {
     showSection('about');
   }
+
+  // スワイプでページ切り替え
+  const sections=['about','works','message','contact'];
+  function getCurrentSection(){
+    const active=document.querySelector('nav a.active');
+    return active ? active.dataset.target : 'about';
+  }
+  let touchStartX=0,touchStartY=0,touchStartTime=0;
+  document.addEventListener('touchstart',function(e){
+    touchStartX=e.touches[0].clientX;
+    touchStartY=e.touches[0].clientY;
+    touchStartTime=Date.now();
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    const dx=e.changedTouches[0].clientX-touchStartX;
+    const dy=e.changedTouches[0].clientY-touchStartY;
+    const dt=Date.now()-touchStartTime;
+    // 横方向が縦より大きく、十分な距離・速さがある場合のみ
+    if(Math.abs(dx)>Math.abs(dy)*1.5 && Math.abs(dx)>50 && dt<400){
+      const cur=sections.indexOf(getCurrentSection());
+      if(dx<0 && cur<sections.length-1){
+        showSection(sections[cur+1]); // 左スワイプ → 次
+      } else if(dx>0 && cur>0){
+        showSection(sections[cur-1]); // 右スワイプ → 前
+      }
+    }
+  },{passive:true});
   // パーティクル
   const c=document.getElementById("particles"),cols=["#00f5ff","#39ff14","#ffc107","#ff6b00","#fff"];
   for(let i=0;i<40;i++){
@@ -407,24 +433,29 @@
     }
     btn.textContent="メールを送る ▶";btn.disabled=false;
   });
-  // イラストクリックでimage2にふわっと2秒間切り替え
-  let img2timer=null;
+  // イラストタッチでimage2にふわっと切り替え→自動で元に戻る
+  let img2busy=false;
   const logoImg=document.querySelector('.logo-img');
-  function swapTo(src,cb){
+  function fadeSwap(src,done){
     logoImg.style.opacity='0';
-    logoImg.style.filter='blur(12px)';
+    logoImg.style.filter='blur(8px)';
     setTimeout(()=>{
       logoImg.src=src;
-      logoImg.style.opacity='1';
-      logoImg.style.filter='blur(0px)';
-      if(cb) setTimeout(cb,2000);
-    },500);
+      // 画像ロード後にフェードイン（既にキャッシュ済みでも requestAnimationFrame で確実に）
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        logoImg.style.opacity='1';
+        logoImg.style.filter='blur(0px)';
+        if(done) setTimeout(done,700); // フェードイン完了待ち
+      }));
+    },700); // フェードアウト完了後に切り替え
   }
   logoImg.addEventListener('click',function(){
-    if(img2timer) return;
-    img2timer=true;
-    swapTo('image2.webp',()=>{
-      swapTo('image.webp',()=>{img2timer=null;});
+    if(img2busy) return;
+    img2busy=true;
+    fadeSwap('image2.webp',()=>{
+      setTimeout(()=>{
+        fadeSwap('image.webp',()=>{ img2busy=false; });
+      },2000); // image2を2秒表示
     });
   });
 })();
