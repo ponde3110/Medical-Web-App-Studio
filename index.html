@@ -33,11 +33,11 @@
   /* 通常時のアイコン（枠あり・グロウ） */
   .logo-icon{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:opacity .45s ease,transform .55s cubic-bezier(.34,1.56,.64,1);}
   /* しゅしゅ君（犬写真・枠なし・少し小さめ・最初は隠す） */
-  .logo-dog{position:absolute;top:50%;left:50%;width:min(168px,36vw);height:auto;border-radius:20px;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-6deg);filter:drop-shadow(0 0 22px rgba(0,245,255,.45)) drop-shadow(0 12px 28px rgba(0,0,0,.55));transition:opacity .4s ease,transform .55s cubic-bezier(.34,1.56,.64,1);}
+  .logo-dog{position:absolute;top:50%;left:50%;width:min(168px,36vw);height:auto;border-radius:20px;pointer-events:none;opacity:0;transform:translate(-50%,-50%);filter:drop-shadow(0 0 22px rgba(0,245,255,.45)) drop-shadow(0 12px 28px rgba(0,0,0,.55));transition:opacity .5s ease;}
   /* クリック中：アイコンがふわっと縮んで消え、しゅしゅ君がポンッと登場 */
   .logo-stack.show-dog .logo-icon{opacity:0;transform:scale(.55);animation:none;}
-  .logo-stack.show-dog .logo-dog{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);animation:dogWiggle 1.6s ease-in-out .55s infinite;}
-  @keyframes dogWiggle{0%,100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);}25%{transform:translate(-50%,-52%) scale(1.02) rotate(-2.5deg);}75%{transform:translate(-50%,-52%) scale(1.02) rotate(2.5deg);}}
+  .logo-stack.show-dog .logo-dog{opacity:1;animation:dogPop .55s cubic-bezier(.34,1.56,.64,1) both;}
+  @keyframes dogPop{0%{transform:translate(-50%,-50%) scale(.8) rotate(-4deg);}60%{transform:translate(-50%,-50%) scale(1.04) rotate(1deg);}100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);}}
   @keyframes logoGlow{from{box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);}to{box-shadow:0 0 0 3px rgba(57,255,20,.6),0 0 40px rgba(57,255,20,.4),0 0 100px rgba(0,200,100,.3),0 20px 60px rgba(0,0,0,.7);}}
   .badge{display:inline-block;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;margin-bottom:10px;}
   @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
