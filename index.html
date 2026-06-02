@@ -27,8 +27,17 @@
   @keyframes heroEntry{from{opacity:0;transform:scale(.7) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
   /* character image */
   .logo-wrap{position:relative;flex-shrink:0;display:flex;flex-direction:column;align-items:center;}
-  .logo-img{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:opacity .7s ease, filter .7s ease;cursor:pointer;}
-  .logo-img.img2-show{filter:blur(0px);}
+  /* アイコンと犬写真を重ねる台 */
+  .logo-stack{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .logo-img{display:block;}
+  /* 通常時のアイコン（枠あり・グロウ） */
+  .logo-icon{width:min(220px,46vw);height:auto;border-radius:24px;box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);animation:logoGlow 3s ease-in-out infinite alternate;transition:opacity .45s ease,transform .55s cubic-bezier(.34,1.56,.64,1);}
+  /* しゅしゅ君（犬写真・枠なし・少し小さめ・最初は隠す） */
+  .logo-dog{position:absolute;top:50%;left:50%;width:min(168px,36vw);height:auto;border-radius:20px;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(-6deg);filter:drop-shadow(0 0 22px rgba(0,245,255,.45)) drop-shadow(0 12px 28px rgba(0,0,0,.55));transition:opacity .4s ease,transform .55s cubic-bezier(.34,1.56,.64,1);}
+  /* クリック中：アイコンがふわっと縮んで消え、しゅしゅ君がポンッと登場 */
+  .logo-stack.show-dog .logo-icon{opacity:0;transform:scale(.55);animation:none;}
+  .logo-stack.show-dog .logo-dog{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);animation:dogWiggle 1.6s ease-in-out .55s infinite;}
+  @keyframes dogWiggle{0%,100%{transform:translate(-50%,-50%) scale(1) rotate(0deg);}25%{transform:translate(-50%,-52%) scale(1.02) rotate(-2.5deg);}75%{transform:translate(-50%,-52%) scale(1.02) rotate(2.5deg);}}
   @keyframes logoGlow{from{box-shadow:0 0 0 3px rgba(0,245,255,.5),0 0 30px rgba(0,245,255,.4),0 0 80px rgba(0,180,255,.25),0 20px 60px rgba(0,0,0,.7);}to{box-shadow:0 0 0 3px rgba(57,255,20,.6),0 0 40px rgba(57,255,20,.4),0 0 100px rgba(0,200,100,.3),0 20px 60px rgba(0,0,0,.7);}}
   .badge{display:inline-block;background:linear-gradient(135deg,var(--neon-orange),var(--gold));color:#000;font-family:"Orbitron",monospace;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:1px;box-shadow:0 0 15px rgba(255,107,0,.7);animation:badgePulse 2s ease-in-out infinite;margin-bottom:10px;}
   @keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.08);}}
@@ -47,7 +56,8 @@
   @media(max-width:640px){
     .hero{padding:16px 16px 120px;min-height:calc(100vh - 56px);}
     .hero-inner{flex-direction:column;gap:8px;margin-bottom:6px;}
-    .logo-img{width:min(160px,42vw);}
+    .logo-icon{width:min(160px,42vw);}
+    .logo-dog{width:min(122px,32vw);}
     .badge{font-size:9px;padding:3px 10px;margin-bottom:6px;}
     .speech-bubble{margin-top:10px;text-align:center;padding:10px 16px;}
     .speech-bubble::before{left:50%;top:-14px;transform:translateX(-50%);border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:14px solid rgba(0,245,255,.5);border-top:none;border-right-color:transparent;}
@@ -165,7 +175,10 @@
     <div class="hero-inner">
       <div class="logo-wrap">
         <span class="badge">現役の循環器内科医が運営する</span>
-        <img src="image.webp" class="logo-img" alt="医療アプリ制作所 所長">
+        <div class="logo-stack" title="しゅしゅ君に会える！">
+          <img src="image.webp" class="logo-img logo-icon" alt="医療アプリ制作所 所長">
+          <img src="image2.webp" class="logo-img logo-dog" alt="マルチーズのしゅしゅ君">
+        </div>
       </div>
       <div class="speech-bubble">
         <div class="bubble-sub">// Medical Web App Studio</div>
@@ -433,30 +446,17 @@
     }
     btn.textContent="メールを送る ▶";btn.disabled=false;
   });
-  // イラストタッチでimage2にふわっと切り替え→自動で元に戻る
-  let img2busy=false;
-  const logoImg=document.querySelector('.logo-img');
-  function fadeSwap(src,done){
-    logoImg.style.opacity='0';
-    logoImg.style.filter='blur(8px)';
+  // イラストをタッチすると、しゅしゅ君（マルチーズ）がポンッと登場して自動で戻る
+  const logoStack=document.querySelector('.logo-stack');
+  let dogBusy=false;
+  logoStack.addEventListener('click',function(){
+    if(dogBusy) return;
+    dogBusy=true;
+    logoStack.classList.add('show-dog');   // アイコン→しゅしゅ君へクロスフェード
     setTimeout(()=>{
-      logoImg.src=src;
-      // 画像ロード後にフェードイン（既にキャッシュ済みでも requestAnimationFrame で確実に）
-      requestAnimationFrame(()=>requestAnimationFrame(()=>{
-        logoImg.style.opacity='1';
-        logoImg.style.filter='blur(0px)';
-        if(done) setTimeout(done,700); // フェードイン完了待ち
-      }));
-    },700); // フェードアウト完了後に切り替え
-  }
-  logoImg.addEventListener('click',function(){
-    if(img2busy) return;
-    img2busy=true;
-    fadeSwap('image2.webp',()=>{
-      setTimeout(()=>{
-        fadeSwap('image.webp',()=>{ img2busy=false; });
-      },2000); // image2を2秒表示
-    });
+      logoStack.classList.remove('show-dog'); // しゅしゅ君→アイコンへ戻る
+      setTimeout(()=>{ dogBusy=false; },650); // 戻りフェード完了まで待つ
+    },2200); // しゅしゅ君を約2.2秒表示
   });
 })();
 </script>
